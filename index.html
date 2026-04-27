@@ -1,0 +1,614 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RAPH GRAFIX EMPIRE</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+:root {
+  --bg: #05151f;
+  --panel: rgba(3, 35, 53, 0.92);
+  --text: #edf4ff;
+  --muted: #95adc7;
+  --accent: #24d7ff;
+  --accent-2: #46ffb5;
+}
+body {
+  background: radial-gradient(circle at top left, rgba(36, 215, 255, 0.14), transparent 22%),
+              radial-gradient(circle at bottom right, rgba(56, 182, 255, 0.14), transparent 22%),
+              var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(255,255,255,0.03), transparent 30%, rgba(0,0,0,0.2));
+  pointer-events: none;
+}
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 22px 40px;
+  background: rgba(4, 20, 34, 0.82);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  z-index: 1000;
+}
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.logo img {
+  width: 42px;
+}
+.logo-title {
+  line-height: 1.05;
+}
+.logo-title span {
+  display: block;
+  font-size: 0.82rem;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+.logo-title h1 {
+  font-size: 1.3rem;
+}
+nav {
+  display: flex;
+  gap: 26px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+nav a {
+  color: var(--muted);
+  text-decoration: none;
+  font-size: 0.95rem;
+  transition: color 0.25s ease;
+}
+nav a:hover,
+nav a.active {
+  color: var(--text);
+}
+main {
+  padding-top: 108px;
+}
+.section {
+  padding: 90px 40px;
+  position: relative;
+}
+.hero {
+  min-height: calc(100vh - 108px);
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 36px;
+  align-items: center;
+}
+.hero-left {
+  max-width: 660px;
+}
+.hero-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+  color: var(--accent);
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  font-size: 0.78rem;
+}
+.hero-eyebrow::before {
+  content: '';
+  width: 40px;
+  height: 1px;
+  background: rgba(36, 215, 255, 0.4);
+}
+.hero-title {
+  font-size: clamp(3rem, 5vw, 5rem);
+  line-height: 0.95;
+  letter-spacing: -0.04em;
+  margin-bottom: 26px;
+}
+.hero-title span {
+  color: var(--accent);
+}
+.hero-copy {
+  color: var(--muted);
+  line-height: 1.85;
+  font-size: 1rem;
+  max-width: 600px;
+  margin-bottom: 32px;
+}
+.hero-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-bottom: 38px;
+}
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 14px 30px;
+  border-radius: 999px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: transform 0.25s ease, background 0.25s ease;
+}
+.btn-primary {
+  background: linear-gradient(135deg, var(--accent), #4fe4ff);
+  color: #04161f;
+}
+.btn-secondary {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.12);
+  color: var(--text);
+}
+.btn:hover {
+  transform: translateY(-2px);
+}
+.hero-meta {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+.meta-card {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 24px;
+  padding: 22px;
+}
+.meta-card strong {
+  display: block;
+  font-size: 1.4rem;
+  margin-bottom: 10px;
+}
+.meta-card span {
+  color: var(--muted);
+  line-height: 1.7;
+}
+.hero-right {
+  display: flex;
+  justify-content: center;
+}
+.hero-preview {
+  width: 100%;
+  max-width: 520px;
+  min-height: 520px;
+  border-radius: 36px;
+  overflow: hidden;
+  background: linear-gradient(180deg, rgba(5, 21, 31, 0.98), rgba(5, 21, 31, 0.85));
+  border: 1px solid rgba(36, 215, 255, 0.16);
+  box-shadow: 0 40px 110px rgba(0,0,0,0.3);
+  position: relative;
+}
+.hero-preview img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.hero-preview::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, transparent 0%, rgba(5,21,31,0.9) 65%);
+}
+.preview-label {
+  position: absolute;
+  left: 28px;
+  bottom: 28px;
+  z-index: 1;
+}
+.preview-label p {
+  color: rgba(255,255,255,0.86);
+  font-size: 0.95rem;
+}
+.about {
+  background: rgba(4, 22, 38, 0.92);
+  border-top: 1px solid rgba(255,255,255,0.06);
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+.about-grid {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 32px;
+  align-items: center;
+}
+.about-heading small {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 18px;
+  font-size: 0.8rem;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+.about-heading h2 {
+  font-size: clamp(2.4rem, 4vw, 3.3rem);
+  margin-bottom: 20px;
+}
+.about-heading p {
+  color: var(--muted);
+  line-height: 1.85;
+}
+.feature-list {
+  display: grid;
+  gap: 16px;
+}
+.feature-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 18px;
+  padding: 22px;
+  border-radius: 26px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+}
+.feature-item::before {
+  content: '';
+  width: 14px;
+  height: 14px;
+  margin-top: 8px;
+  background: var(--accent);
+  border-radius: 50%;
+  box-shadow: 0 0 18px rgba(36,215,255,0.28);
+}
+.feature-item h4 {
+  margin-bottom: 10px;
+}
+.feature-item p {
+  color: var(--muted);
+  line-height: 1.8;
+}
+.portfolio {
+  padding-bottom: 60px;
+}
+.section-title {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-bottom: 44px;
+}
+.section-title small {
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 0.35em;
+  font-size: 0.8rem;
+}
+.section-title h2 {
+  font-size: clamp(2.4rem, 4vw, 3.4rem);
+}
+.portfolio-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px;
+}
+.project-card {
+  border-radius: 28px;
+  overflow: hidden;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.08);
+  box-shadow: 0 28px 90px rgba(0,0,0,0.18);
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+.project-card:hover {
+  transform: translateY(-6px);
+}
+.project-card img {
+  width: 100%;
+  display: block;
+  object-fit: cover;
+  aspect-ratio: 4 / 3;
+}
+.project-card-body {
+  padding: 22px;
+}
+.project-card-body h3 {
+  margin-bottom: 12px;
+}
+.project-card-body p {
+  color: var(--muted);
+  line-height: 1.8;
+}
+.contact {
+  background: rgba(4, 20, 34, 0.92);
+  border-top: 1px solid rgba(255,255,255,0.06);
+}
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 32px;
+  align-items: start;
+}
+.contact-info,
+.contact-form {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 32px;
+  padding: 34px;
+}
+.contact-info h3,
+.contact-form h3 {
+  margin-bottom: 18px;
+}
+.contact-info p {
+  color: var(--muted);
+  line-height: 1.9;
+}
+.contact-info ul {
+  list-style: none;
+  margin-top: 24px;
+  display: grid;
+  gap: 14px;
+}
+.contact-info li {
+  display: flex;
+  gap: 12px;
+  color: var(--muted);
+}
+.contact-info li span {
+  color: var(--accent);
+}
+.contact-form label {
+  display: block;
+  margin-bottom: 10px;
+  color: var(--text);
+  font-size: 0.92rem;
+}
+.contact-form input,
+.contact-form textarea {
+  width: 100%;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 18px;
+  padding: 16px 18px;
+  color: var(--text);
+  margin-bottom: 18px;
+}
+.contact-form textarea {
+  min-height: 180px;
+  resize: vertical;
+}
+.contact-form button {
+  width: 100%;
+}
+footer {
+  text-align: center;
+  padding: 34px 40px;
+  color: rgba(229, 239, 255, 0.62);
+}
+.lightbox {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.9);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+}
+.lightbox img {
+  max-width: 90%;
+  max-height: 90%;
+  border-radius: 16px;
+}
+.lightbox span {
+  position: absolute;
+  top: 24px;
+  right: 28px;
+  color: #fff;
+  font-size: 32px;
+  cursor: pointer;
+}
+@media (max-width: 1080px) {
+  .hero,
+  .about-grid,
+  .contact-grid,
+  .portfolio-grid {
+    grid-template-columns: 1fr;
+  }
+  header {
+    padding: 18px 24px;
+  }
+  .hero-preview {
+    min-height: 420px;
+  }
+  .hero-meta {
+    grid-template-columns: 1fr;
+  }
+}
+@media (max-width: 720px) {
+  .section {
+    padding: 68px 20px;
+  }
+  nav {
+    gap: 14px;
+    justify-content: center;
+  }
+  .hero-title {
+    font-size: 2.5rem;
+  }
+}
+</style>
+</head>
+<body>
+<header>
+  <div class="logo">
+    <img src="logo.png" alt="Logo">
+    <div class="logo-title">
+      <span>GRAPHIC STUDIO</span>
+      <h1>RAPH GRAFIX</h1>
+    </div>
+  </div>
+  <nav>
+    <a href="#home">Home</a>
+    <a href="#about">About</a>
+    <a href="#portfolio">Portfolio</a>
+    <a href="#contact">Contact</a>
+    <a href="#socials">Socials</a>
+  </nav>
+</header>
+<main>
+  <section id="home" class="section hero">
+    <div class="hero-left">
+      <div class="hero-eyebrow">Graphic Designer</div>
+      <h1 class="hero-title">Bold visuals that <span>elevate</span> your brand.</h1>
+      <p class="hero-copy">High-impact designs, social-media-ready graphics, and brand identity assets crafted for businesses that want to stand out.</p>
+      <div class="hero-buttons">
+        <a href="#contact" class="btn btn-primary">Book a Design</a>
+        <a href="#portfolio" class="btn btn-secondary">View Portfolio</a>
+      </div>
+      <div class="hero-meta">
+        <div class="meta-card">
+          <strong>5+ Years</strong>
+          <span>Designing visuals for brands, events and campaigns.</span>
+        </div>
+        <div class="meta-card">
+          <strong>Fast Delivery</strong>
+          <span>Ready-to-use design assets for immediate publishing.</span>
+        </div>
+      </div>
+    </div>
+    <div class="hero-right">
+      <div class="hero-preview">
+        <img src="premium-creative-studio-bg.jpg" alt="Design showcase">
+        <div class="preview-label">
+          <p>Creative design showcase for premium brands</p>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section id="about" class="section about">
+    <div class="about-grid">
+      <div class="about-heading">
+        <small>About</small>
+        <h2>Designs that connect, engage, and convert.</h2>
+        <p>I specialize in visual storytelling for businesses and creators. From logos and posters to social media campaigns, I create designs that help your brand stand out and resonate.</p>
+      </div>
+      <div class="feature-list">
+        <div class="feature-item">
+          <div>
+            <h4>Social Media Graphics</h4>
+            <p>Custom feed posts, banners, and promotional assets built for engagement and shareability.</p>
+          </div>
+        </div>
+        <div class="feature-item">
+          <div>
+            <h4>Brand Identity</h4>
+            <p>Logo systems, color themes, and brand assets that give your business a professional edge.</p>
+          </div>
+        </div>
+        <div class="feature-item">
+          <div>
+            <h4>Print Design</h4>
+            <p>Posters, flyers, business cards, and apparel mockups with sharp, production-ready visuals.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section id="portfolio" class="section portfolio">
+    <div class="section-title">
+      <small>Portfolio</small>
+      <h2>Recent projects and creative work.</h2>
+    </div>
+    <div class="portfolio-grid">
+      <div class="project-card" onclick="openLightbox('raph grafix poster.jpeg')">
+        <img src="raph grafix poster.jpeg" alt="Poster design">
+        <div class="project-card-body">
+          <h3>Poster Campaign</h3>
+          <p>Strong visuals made for event promotion and brand visibility.</p>
+        </div>
+      </div>
+      <div class="project-card" onclick="openLightbox('inovation solution.jpg')">
+        <img src="inovation solution.jpg" alt="Innovation solution">
+        <div class="project-card-body">
+          <h3>Brand Graphics</h3>
+          <p>Modern identity visuals designed to communicate clarity and style.</p>
+        </div>
+      </div>
+      <div class="project-card" onclick="openLightbox('CHARITY GALA.jpg')">
+        <img src="CHARITY GALA.jpg" alt="Charity gala poster">
+        <div class="project-card-body">
+          <h3>Event Poster</h3>
+          <p>Elegant design for a high-profile charity and community campaign.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section id="contact" class="section contact">
+    <div class="contact-grid">
+      <div class="contact-info">
+        <h3>Let's work together</h3>
+        <p>Ready to bring your next design project to life? Send a message and let’s create graphics that make a statement.</p>
+        <ul>
+          <li><span>•</span> WhatsApp: 0792922561</li>
+          <li><span>•</span> Email: contact@raphgrafix.com</li>
+          <li><span>•</span> Location: Kampala, Uganda</li>
+        </ul>
+      </div>
+      <div class="contact-form">
+        <form onsubmit="sendMessage(event)">
+          <label for="name">Your Name</label>
+          <input type="text" id="name" placeholder="Your Name" required>
+          <label for="email">Your Email</label>
+          <input type="email" id="email" placeholder="Your Email" required>
+          <label for="message">Your Message</label>
+          <textarea id="message" placeholder="Tell me about your project" required></textarea>
+          <button class="btn btn-primary" type="submit">Send Message</button>
+        </form>
+      </div>
+    </div>
+  </section>
+  <section id="socials" class="section">
+    <div class="section-title">
+      <small>Socials</small>
+      <h2>Follow the studio for updates and new releases.</h2>
+    </div>
+    <div style="display:flex;flex-wrap:wrap;gap:20px;">
+      <a href="#" style="display:inline-flex;align-items:center;justify-content:center;min-width:160px;padding:18px 24px;border-radius:24px;background:rgba(36,215,255,0.08);color:var(--text);text-decoration:none;">Instagram</a>
+      <a href="https://www.facebook.com/raphgrafix" target="_blank" rel="noopener noreferrer" style="display:inline-flex;align-items:center;justify-content:center;min-width:160px;padding:18px 24px;border-radius:24px;background:rgba(36,215,255,0.08);color:var(--text);text-decoration:none;">Facebook</a>
+      <a href="https://wa.me/254792922561" target="_blank" rel="noopener noreferrer" style="display:inline-flex;align-items:center;justify-content:center;min-width:160px;padding:18px 24px;border-radius:24px;background:rgba(36,215,255,0.08);color:var(--text);text-decoration:none;">WhatsApp</a>
+    </div>
+  </section>
+</main>
+<footer>
+  © 2026 RAPH GRAFIX EMPIRE | All rights reserved.
+</footer>
+<script>
+function sendMessage(e) {
+  e.preventDefault();
+  alert('Message sent successfully!');
+}
+function openLightbox(src) {
+  const lightbox = document.getElementById('lightbox');
+  document.getElementById('lightbox-img').src = src;
+  lightbox.style.display = 'flex';
+}
+function closeLightbox() {
+  document.getElementById('lightbox').style.display = 'none';
+}
+</script>
+<div class="lightbox" id="lightbox">
+  <span onclick="closeLightbox()">&times;</span>
+  <img id="lightbox-img" alt="Preview">
+</div>
+</body>
+</html>
